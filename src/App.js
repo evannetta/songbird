@@ -16,6 +16,8 @@ const App = () => {
   const [birdIndex, setbirdIndex] = useState(Math.floor(Math.random() * max));
   const [birdName, setBirdName] = useState(birdsData[pageNumber][birdIndex].name);
   const [audio, setAudio] = useState(birdsData[pageNumber][birdIndex].audio);
+  const [score, setScore] = useState(0);
+  const [levelScore, setLevelScore] = useState(5);
   console.log(birdName);
   
   let answers = birdsData[pageNumber].map((item) => item.name);
@@ -28,7 +30,12 @@ const App = () => {
     if(!success){
       if(button.name === birdName){
           setSuccess(true);
+          setScore(score + levelScore);
+          setLevelScore(5);
+      } else{
+        setLevelScore(levelScore - 1);
       }
+      
       let newBtnClass = [...btnAnswerClass];
       newBtnClass[button.value] = classNames(
       'indicator',
@@ -39,6 +46,7 @@ const App = () => {
   }
   
   const handleNextLevel = () =>{
+    
     setPageNumber(pageNumber < 5 ? pageNumber + 1 : 0);
     setSuccess(false);
     setbirdIndex(Math.floor(Math.random() * max));
@@ -49,11 +57,17 @@ const App = () => {
 
    return (
     <Container className="App">
-      <Header page = {pageNumber}/>
+      <Header page = {pageNumber} score = {score}/>
       <Question name = {success? birdName : '???????' } audio = {audio}/>
       <Answers answers = {answers} btnClass = {btnAnswerClass} handleAnswers = {handleAnswers}/>
       {/* <Description /> */}
-      <button className="mt-3 w-100" onClick = {handleNextLevel}>Наступний рівень</button>
+      <button 
+        type="button"
+        className={`mt-3 w-100 btn ${success ? 'btn-success':'btn-danger'}`}
+        onClick = {handleNextLevel}
+        disabled = {!success}>
+          Наступний рівень
+      </button>
     </Container>
   );
 }
