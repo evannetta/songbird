@@ -1,28 +1,26 @@
 import React from 'react';
-import { Row, Image , Card} from 'react-bootstrap'
+import {  Image , Card} from 'react-bootstrap'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-const Question = ({name, audio}) => {
+const Question = ({name, audio, image}) => {
     return (
-        <Card border = 'primary' >
-            <Row className="no-gutters">
-                <Card.Header className = "col-md-4">
-                    <Image src={require('../default-bird.jpg')} rounded /> 
-                </Card.Header>
-                <Card.Body className = "col-md-8">
-                    <Card.Title>
-                        {name}
-                    </Card.Title>
-                    <Card.Text className = 'mt-4' >
+        <Card border = 'primary' text = 'info'>
+            <Card.Header>
+                {name}
+            </Card.Header>
+            <Card.Body >
+                <Card.Title>
+                    <Image src={image} rounded  style={{ height: '10rem' }}/> 
+                </Card.Title>
+                <Card.Text >
                     <AudioPlayer  
                         src={audio}
                         autoPlay
                         controls
-                      />
-                    </Card.Text>
-                </Card.Body>
-            </Row> 
+                        />
+                </Card.Text>
+            </Card.Body>
         </Card>
      )
 }

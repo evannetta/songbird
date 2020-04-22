@@ -1,10 +1,11 @@
 import React, { useState} from 'react';
 import { Container} from 'react-bootstrap'
-import classNames from 'classnames';
 
 import Header from './Components/Header'
 import Question from './Components/Question'
 import Answers from './Components/Answers'
+import EndGamePage from './Components/EndGamePage'
+
 import birdsData from './birds'
 import './App.css';
 import './bootstrap.min.css';
@@ -16,49 +17,60 @@ const App = () => {
   const [birdIndex, setbirdIndex] = useState(Math.floor(Math.random() * max));
   const [birdName, setBirdName] = useState(birdsData[pageNumber][birdIndex].name);
   const [audio, setAudio] = useState(birdsData[pageNumber][birdIndex].audio);
+  const [image, setImage] = useState(birdsData[pageNumber][birdIndex].image);
   const [score, setScore] = useState(0);
   const [levelScore, setLevelScore] = useState(5);
+  const [end, setEnd] = useState(false);
   console.log(birdName);
   
   let answers = birdsData[pageNumber].map((item) => item.name);
   
-  let  btnInitClass = classNames('indicator', {'bg-light': true});
   const [success, setSuccess] = useState(false);
-  const [btnAnswerClass, setBtnClass] = useState(Array(answers.length).fill(btnInitClass));
+  const [btnAnswerClass, setBtnClass] = useState(Array(answers.length).fill('indicator bg-light'));
   
   const handleAnswers = (button) => {
+    let pressedButton = '';
     if(!success){
       if(button.name === birdName){
           setSuccess(true);
           setScore(score + levelScore);
           setLevelScore(5);
+          pressedButton = 'bg-success';
       } else{
         setLevelScore(levelScore - 1);
+        pressedButton = 'bg-danger';
       }
-      
       let newBtnClass = [...btnAnswerClass];
-      newBtnClass[button.value] = classNames(
-      'indicator',
-      {'bg-light': false},
-      button.name === birdName ? 'bg-success' : 'bg-danger');
+      newBtnClass[button.value] = `indicator ${pressedButton}`;
       setBtnClass([...newBtnClass]);
     }
   }
   
   const handleNextLevel = () =>{
-    
-    setPageNumber(pageNumber < 5 ? pageNumber + 1 : 0);
+    setPageNumber(pageNumber<5 ? pageNumber + 1 : 0);
     setSuccess(false);
     setbirdIndex(Math.floor(Math.random() * max));
-    setBirdName(birdsData[pageNumber < 5 ? pageNumber + 1 : 0][birdIndex].name);
-    setBtnClass(Array(answers.length).fill(btnInitClass));
-    setAudio(birdsData[pageNumber < 5 ? pageNumber + 1 : 0][birdIndex].audio);
+    setBirdName(birdsData[pageNumber<5 ? pageNumber + 1 : 0][birdIndex].name);
+    setBtnClass(Array(answers.length).fill('indicator bg-light'));
+    setAudio(birdsData[pageNumber<5 ? pageNumber + 1 : 0][birdIndex].audio);
+    setImage(birdsData[pageNumber<5 ? pageNumber + 1 : 0][birdIndex].image);
+    if(pageNumber === 5){
+      setEnd(true);
+    }
   };
+  
+  const handleNewGame = () =>{
+    setEnd(false);
+    setScore(0);
+ };
+
 
    return (
     <Container className="App">
       <Header page = {pageNumber} score = {score}/>
-      <Question name = {success? birdName : '???????' } audio = {audio}/>
+      {!end ? (<>
+      <Question name = {success? birdName : '???????' } audio = {audio}
+       image = {success? image : require('./default-bird.jpg')}/>
       <Answers answers = {answers} btnClass = {btnAnswerClass} handleAnswers = {handleAnswers}/>
       {/* <Description /> */}
       <button 
@@ -68,6 +80,8 @@ const App = () => {
         disabled = {!success}>
           Наступний рівень
       </button>
+      </>) :
+      ( <EndGamePage score = {score} handleNewGame = {handleNewGame}/>)}
     </Container>
   );
 }
