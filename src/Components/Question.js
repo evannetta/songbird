@@ -5,13 +5,16 @@ import 'react-h5-audio-player/lib/styles.css';
 
 const Question = ({name, audio, image}) => {
     return (
-        <Card border = 'primary' text = 'info'>
-            <Card.Header>
-                {name}
-            </Card.Header>
+        <Card
+            border = 'primary'
+            text = 'info'>
+            <Card.Header>{name}</Card.Header>
             <Card.Body >
                 <Card.Title>
-                    <Image src={image} rounded  style={{ height: '10rem' }}/> 
+                    <Image
+                        src = {image}
+                        rounded
+                        style={{ height: '10rem' }}/> 
                 </Card.Title>
                 <Card.Text >
                     <AudioPlayer  
