@@ -1,15 +1,13 @@
 import React, { useState} from 'react';
 import { Container} from 'react-bootstrap'
+import birdsData from './birds'
+import './App.css';
+import './bootstrap.min.css';
 
 import Header from './Components/Header'
 import Question from './Components/Question'
 import Answers from './Components/Answers'
 import EndGamePage from './Components/EndGamePage'
-
-import birdsData from './birds'
-import './App.css';
-import './bootstrap.min.css';
-
 
 const App = () => {
   const max = 6;
@@ -21,11 +19,8 @@ const App = () => {
   const [score, setScore] = useState(0);
   const [levelScore, setLevelScore] = useState(5);
   const [end, setEnd] = useState(false);
-  console.log(birdName);
-  
-  let answers = birdsData[pageNumber].map((item) => item.name);
-  
   const [success, setSuccess] = useState(false);
+  let answers = birdsData[pageNumber].map((item) => item.name);
   const [btnAnswerClass, setBtnClass] = useState(Array(answers.length).fill('indicator bg-light'));
   
   const handleAnswers = (button) => {
@@ -64,24 +59,33 @@ const App = () => {
     setScore(0);
  };
 
-
-   return (
-    <Container className="App">
-      <Header page = {pageNumber} score = {score}/>
+ return (
+    <Container className = 'App'>
+      <Header
+       page = {pageNumber} 
+       score = {score}/>
       {!end ? (<>
-      <Question name = {success? birdName : '???????' } audio = {audio}
+      <Question
+       name = {success? birdName : '???????' }
+       audio = {audio}
        image = {success? image : require('./default-bird.jpg')}/>
-      <Answers answers = {answers} btnClass = {btnAnswerClass} handleAnswers = {handleAnswers}/>
+      <Answers
+       answers = {answers} 
+       btnClass = {btnAnswerClass} 
+       handleAnswers = {handleAnswers}/>
       {/* <Description /> */}
       <button 
         type="button"
         className={`mt-3 w-100 btn ${success ? 'btn-success':'btn-danger'}`}
         onClick = {handleNextLevel}
         disabled = {!success}>
-          Наступний рівень
+        Наступний рівень
       </button>
-      </>) :
-      ( <EndGamePage score = {score} handleNewGame = {handleNewGame}/>)}
+      </>) : ( 
+      <EndGamePage
+       score = {score} 
+       handleNewGame = {handleNewGame}/>
+      )}
     </Container>
   );
 }

@@ -1,7 +1,5 @@
 import React from 'react';
-import {  Image , Card} from 'react-bootstrap'
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+import {Image, Card} from 'react-bootstrap'
 
 const Question = ({name, audio, image}) => {
     return (
@@ -16,13 +14,11 @@ const Question = ({name, audio, image}) => {
                         rounded
                         style={{ height: '10rem' }}/> 
                 </Card.Title>
-                <Card.Text >
-                    <AudioPlayer  
-                        src={audio}
-                        autoPlay
-                        controls
-                        />
-                </Card.Text>
+                <audio
+                    className = 'custom-range'
+                    src={audio}
+                    controls >
+                </audio>
             </Card.Body>
         </Card>
      )
