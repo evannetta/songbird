@@ -1,8 +1,9 @@
 import React, { useState} from 'react';
 import { Container} from 'react-bootstrap'
-import birdsData from './birds'
+import birdsData from './birds_eng'
 import './App.css';
 import './bootstrap.min.css';
+
 
 import Header from './Components/Header'
 import Question from './Components/Question'
@@ -16,6 +17,7 @@ const App = () => {
   const [birdName, setBirdName] = useState(birdsData[pageNumber][birdIndex].name);
   const [audio, setAudio] = useState(birdsData[pageNumber][birdIndex].audio);
   const [image, setImage] = useState(birdsData[pageNumber][birdIndex].image);
+  const [description, setDescription] = useState(birdsData[pageNumber][birdIndex].description);
   const [score, setScore] = useState(0);
   const [levelScore, setLevelScore] = useState(5);
   const [end, setEnd] = useState(false);
@@ -49,6 +51,7 @@ const App = () => {
     setBtnClass(Array(answers.length).fill('indicator bg-light'));
     setAudio(birdsData[pageNumber<5 ? pageNumber + 1 : 0][birdIndex].audio);
     setImage(birdsData[pageNumber<5 ? pageNumber + 1 : 0][birdIndex].image);
+    setDescription(birdsData[pageNumber<5 ? pageNumber + 1 : 0][birdIndex].description);
     if(pageNumber === 5){
       setEnd(true);
     }
@@ -66,20 +69,22 @@ const App = () => {
        score = {score}/>
       {!end ? (<>
       <Question
-       name = {success? birdName : '???????' }
-       audio = {audio}
-       image = {success? image : require('./default-bird.jpg')}/>
+        name = {success? birdName : 'Guess who I am.' }
+        audio = {audio}
+      //  image = {success? image : require('./default-bird.jpg')}
+        image = {success ? {image, opacity: true} : {image, opacity: false}}
+        description = {success? description : ""}
+      />
       <Answers
        answers = {answers} 
        btnClass = {btnAnswerClass} 
        handleAnswers = {handleAnswers}/>
-      {/* <Description /> */}
       <button 
         type="button"
         className={`mt-3 w-100 btn ${success ? 'btn-success':'btn-danger'}`}
         onClick = {handleNextLevel}
         disabled = {!success}>
-        Наступний рівень
+        Next
       </button>
       </>) : ( 
       <EndGamePage

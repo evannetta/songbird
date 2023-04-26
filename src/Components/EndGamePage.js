@@ -9,15 +9,15 @@ const EndGamePage = ({score, handleNewGame}) => {
                 style = {{height: '10em'}} 
                 variant = 'success'>
                 <Alert.Heading>
-                    Вітаємо!
+                    Congradulations!
                 </Alert.Heading>
-                <p>Ви пройшли вікторину та набрали {score} балів з 30</p>
+                <p>You scored {score} points out of 30</p>
             </Alert>
             <button 
                 type = 'button'
                 className = 'w-100 btn btn-primary'
                 onClick = {() => handleNewGame()}>
-                Грати ще
+                Play again
             </button>
         </>
         )

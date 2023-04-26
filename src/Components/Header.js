@@ -2,7 +2,7 @@ import React from 'react';
 import { Pagination, Container, Badge } from 'react-bootstrap'
 
 const Header = ({page, score}) => {
-    const data = ['Розминка','Гороб\'ячі','Лісові птахи', 'Співучі птахи', 'Хижі птахи', 'Морські птахи'];
+    const data = ['Warm up','Sparrows','Forest birds', 'Singing birds', 'Birds of prey', 'Sea birds'];
     return (
         <>
             <Container className = 'd-flex flex-wrap justify-content-between'>
@@ -12,7 +12,7 @@ const Header = ({page, score}) => {
                 <Badge className = 'align-self-end mb-2' 
                     pill 
                     variant = 'info'>
-                    Балів: <span className = 'score'>{score}</span>
+                    Score: <span className = 'score'>{score}</span>
                 </Badge>
             </Container>
             <Pagination className = 'd-flex flex-wrap'>
