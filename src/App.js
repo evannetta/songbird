@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import { Container} from 'react-bootstrap'
+import React, {useState} from 'react';
+import {Container} from 'react-bootstrap'
 import birdsData from './birds_eng'
 import './App.css';
 import './bootstrap.min.css';
@@ -60,36 +60,35 @@ const App = () => {
   const handleNewGame = () =>{
     setEnd(false);
     setScore(0);
- };
+  };
 
- return (
+  return (
     <Container className = 'App'>
       <Header
-       page = {pageNumber} 
-       score = {score}/>
+        page = {pageNumber} 
+        score = {score}/>
       {!end ? (<>
       <Question
-        name = {success? birdName : 'Guess who I am.' }
+        name = {success ? birdName : 'Guess who I am.' }
         audio = {audio}
-      //  image = {success? image : require('./default-bird.jpg')}
         image = {success ? {image, opacity: true} : {image, opacity: false}}
-        description = {success? description : ""}
+        description = {success ? description : ''}
       />
       <Answers
-       answers = {answers} 
-       btnClass = {btnAnswerClass} 
-       handleAnswers = {handleAnswers}/>
+        answers = {answers} 
+        btnClass = {btnAnswerClass} 
+        handleAnswers = {handleAnswers}/>
       <button 
-        type="button"
-        className={`mt-3 w-100 btn ${success ? 'btn-success':'btn-danger'}`}
+        type = "button"
+        className = {`mt-3 w-100 btn ${success ? 'btn-success':'btn-danger'}`}
         onClick = {handleNextLevel}
         disabled = {!success}>
         Next
       </button>
       </>) : ( 
       <EndGamePage
-       score = {score} 
-       handleNewGame = {handleNewGame}/>
+        score = {score} 
+        handleNewGame = {handleNewGame}/>
       )}
     </Container>
   );

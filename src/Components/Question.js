@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Card} from 'react-bootstrap'
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import {useEffect, useRef} from 'react';
+import {gsap} from 'gsap';
 
 const Question = ({name, audio, image, description}) => {
   let imgRef = useRef(null);
@@ -14,38 +14,37 @@ const Question = ({name, audio, image, description}) => {
       tl.to(textRef.current, {opacity: 1, duration: 1},'<+0.7')
     } else {
       tl.set(imgRef.current, {filter: 'blur(20px)', opacity: 0.95})
-      tl.set(textRef.current, { opacity: 0})
+      tl.set(textRef.current, {opacity: 0})
     } 
   }, [image.opacity]);
 
-    return (
-        <Card
-            border = 'primary'
-            text = 'info'>
-            <Card.Header>{name}</Card.Header>
-            <Card.Body 
-              style={{columnGap: '1.25rem'}}>
-                <Card.Title>
-                  <Image
-                      src = {image.image}
-                      rounded
-                      style={{maxHeight: '17rem'}}
-                      ref = {imgRef}/> 
-                </Card.Title>
-                <Card.Text 
-                  ref = {textRef}
-                  style={{ textAlign: 'justify'}}>
-                  {description}
-                </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <audio
-                  className = 'custom-range'
-                  src={audio}
-                  controls >
-              </audio>
-            </Card.Footer>   
-        </Card>
-     )
+  return (
+    <Card
+      border = 'primary'
+      text = 'info'>
+      <Card.Header>{name}</Card.Header>
+      <Card.Body>
+        <Card.Title>
+          <Image
+            src = {image.image}
+            rounded
+            fluid
+            ref = {imgRef}/> 
+        </Card.Title>
+        <Card.Text 
+          ref = {textRef}
+          style = {{textAlign: 'justify'}}>
+          {description}
+        </Card.Text>
+      </Card.Body>
+      <Card.Footer>
+        <audio
+          className = 'custom-range'
+          src = {audio}
+          controls >
+        </audio>
+      </Card.Footer>   
+    </Card>
+  )
 }
 export default Question;
