@@ -2,4 +2,4 @@
 
 This is a quiz game to guess a bird by its song.
 
-This SPA had been developed by using  React with Hooks, Refs,  React-Bootstrap, and GSAP animation.
+The SPA was developed using  React with Hooks, Refs,  React-Bootstrap, and GSAP animation.
