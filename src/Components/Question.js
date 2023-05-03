@@ -29,6 +29,7 @@ const Question = ({name, audio, image, description}) => {
             src = {image.image}
             rounded
             fluid
+            style={{maxHeight: '17rem'}}
             ref = {imgRef}/> 
         </Card.Title>
         <Card.Text 
